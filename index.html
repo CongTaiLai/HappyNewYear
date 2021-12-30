@@ -1,16 +1,64 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html>
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="1894.6">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 27.0px Helvetica}
-  </style>
-</head>
-<body>
-<p class="p1"><b>Happy New Year!</b></p>
-</body>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<title>New Year Timer</title>
+		<script src="jquery-3.1.1.min.js"></script>
+		<script>
+			$(function() {
+				setInterval(function() { refreshTime(); }, 100);
+			});
+
+			var refreshTime = function() {
+				nextYear = new Date().getFullYear()+1;
+				newYear = new Date(nextYear, 0, 1, 0, 0, 0);
+				countdown = new Date(newYear.getTime()-new Date().getTime());
+
+				days = parseInt(countdown.getTime()/1000/60/60/24);
+				hours = countdown.getHours()-1;
+				minutes = countdown.getMinutes();
+				seconds = countdown.getSeconds();
+
+				$('#nextYear').html(nextYear);
+
+				if(hours < 10) hours = '0' + hours;
+				if(minutes < 10) minutes = '0' + minutes;
+				if(seconds < 10) seconds = '0' + seconds;
+				$('#time').html(hours + '小时 ' + minutes + '分钟 ' + seconds + '秒');
+
+				if(days == 0) daysHTML = "";
+				else if (days == 1) daysHTML = days + "天";
+				else daysHTML = days + " days";
+				$('#days').html(daysHTML);
+			}
+		</script>
+		<style>
+			body {
+				background-color: #333;
+				color: #fff;
+				text-align: center;
+				padding-top: 10%;
+			}
+
+			h1 {
+				font-size: 50px;
+			}
+
+			#days {
+				font-size: 40px;
+			}
+
+			#time {
+				font-size: 35px;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<h1>距离</br><span id="nextYear" style="font-size: 100px;">????</span>年<br/>还有</h1>
+		</div>
+		<div id="days">???</div>
+		<div id="time">??:??:??</div>
+	</body>
 </html>
